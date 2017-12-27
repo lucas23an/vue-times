@@ -4,7 +4,7 @@ import { Time } from './time'
 require('style-loader!css-loader!bootstrap/dist/css/bootstrap.min.css');
 require('bootstrap');
 
-new Vue({
+let meuVue = new Vue({
   el: '#app',
   data: {
     times: [
