@@ -1,4 +1,4 @@
-import Vue from 'vue'
+  import Vue from 'vue'
 import { Time } from './time'
 
 require('style-loader!css-loader!bootstrap/dist/css/bootstrap.min.css');
@@ -7,6 +7,7 @@ require('bootstrap');
 let meuVue = new Vue({
   el: '#app',
   data: {
+    colunas: ['nome', 'pontos', 'gm', 'gs', 'saldo'],
     times: [
       new Time('Palmeiras', require('./assets/palmeiras_60x60.png')),
       new Time('Flamengo', require('./assets/flamengo_60x60.png')),
@@ -48,5 +49,21 @@ let meuVue = new Vue({
     this.novoJogo.casa.gols = 0;
     this.novoJogo.fora.time = this.times[indexFora];
     this.novoJogo.fora.gols = 0;
+  },
+  methods: {
+    fimJogo() {
+      let timeAdversario = this.novoJogo.fora.time;
+      let gols = +this.novoJogo.casa.gols;
+      let golsAdversario = +this.novoJogo.fora.gols;
+      this.novoJogo.casa.time.fimJogo(timeAdversario, gols, golsAdversario);
+    }
+  },
+  filters: {
+    saldo(time) {
+      return time.gm - time.gs;
+    },
+    ucwords(value) {
+      return value.charAt(0).toUpperCase() + value.slice(1);
+    }
   }
 });
